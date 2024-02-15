@@ -62,3 +62,8 @@ INSTALLED_APPS += ["django_extensions"]  # noqa: F405
 
 # Your stuff...
 # ------------------------------------------------------------------------------
+LOCAL_APPS = [
+ "everycheese.users.apps.UsersConfig", # custom users app
+ 
+ "everycheese.cheeses.apps.CheesesConfig", # cheese info app
+]
