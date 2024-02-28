@@ -1,13 +1,39 @@
 {% extends "base.html" %}
 
+{% load countries %}
+
 {% block title %}Cheese List{% endblock title %}
 
 {% block content %}
     <h2>Cheese List</h2>
-<ul>
-    {% for cheese in cheese_list %}
-        <li><a href="{% url 'cheeses:detail' cheese.slug %}">{{ cheese.name }}</a></li>
-    {% endfor %}
-</ul>
- 
+    <div class="container" style="max-height: 500px; overflow-y: auto;">
+        <table class="table">
+            <thead style="position: sticky; top: 0; background-color: white;">
+                <tr>
+                    <th scope="col">Cheese Name</th>
+                    <th scope="col">Country of Origin</th>
+                    <th scope="col">Command</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cheese in cheese_list %}
+                <tr>
+                    <td><a href="{% url 'cheeses:detail' cheese.slug %}">{{ cheese.name }}</a></td>
+                    <td>{{ cheese.get_country_of_origin_display|default:"N/A" }}</td>
+                    <td><a href="{% url 'cheeses:delete' cheese.slug %}">Delete</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <hr/>
+    <p>Don't see a cheese listed here?</p>
+    <p>
+        <a class="btn btn-primary"
+                href="{% url 'cheeses:add' %}" role="button">
+            Add Cheese
+         </a>
+    </p>
+    
 {% endblock content %}
